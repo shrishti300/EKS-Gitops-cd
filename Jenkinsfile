@@ -32,7 +32,7 @@ pipeline {
 
                         sh "git add ."
                         sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
-                        sh "GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i ${key}' git push git@github.com:adkharat/eks-gitops.git HEAD:main"
+                        sh "GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i ${key}' git push git@github.com:shrishti300/EKS-Gitops-cd.git HEAD:main"
                     }
                 }
                 }
