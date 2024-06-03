@@ -16,14 +16,20 @@ spec:
     spec:
       containers:
       - name: first-deployment-eks-and-rds-container
-        image: adkharat/first_spring_boot_to_rds_1:36
+        image: {{ .Values.images.backend_1 }}:8
         env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://spring-mysql:3306/company?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
+              value: jdbc:mysql://spring-mysql:{{ .Values.database.port }}/{{ .Values.database.databaseName }}?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
             - name: SPRING_DATASOURCE_USERNAME
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-username
+                  key: username
             - name: SPRING_DATASOURCE_PASSWORD
-              value: rdspassword
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-root-password
+                  key: password
             - name: FEIGN_CLIENT_NAME
               value: second-service-eks-and-rds
             - name: FEIGN_CLIENT_URL
@@ -56,14 +62,20 @@ spec:
     spec:
       containers:
       - name: second-deployment-eks-and-rds-container
-        image: adkharat/second_spring_boot_to_rds_1:36
+        image: {{ .Values.images.backend_2 }}:8
         env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://spring-mysql:3306/company?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
+              value: jdbc:mysql://spring-mysql:{{ .Values.database.port }}/{{ .Values.database.databaseName }}?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
             - name: SPRING_DATASOURCE_USERNAME
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-username
+                  key: username
             - name: SPRING_DATASOURCE_PASSWORD
-              value: rdspassword
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-root-password
+                  key: password
         ports:
             - containerPort: 8081
         resources:

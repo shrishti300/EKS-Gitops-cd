@@ -4,4 +4,4 @@ metadata:
   name: spring-mysql
 spec:
   type: ExternalName
-  externalName: database-12.cb662k08an3m.ap-south-1.rds.amazonaws.com #Replace with RDS endpoint
+  externalName: {{ .Values.database.rds_endpoint }}

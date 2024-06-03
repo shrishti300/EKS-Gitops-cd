@@ -14,7 +14,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: advancek8straining.online
+    - host: kartikdevops.online
       http:
         paths:
           - path: /

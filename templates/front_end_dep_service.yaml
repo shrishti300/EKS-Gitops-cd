@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: currency-exchange-container
-        image: adkharat/react-currency-exchange-app-fe:36
+        image: {{ .Values.images.frontend }}:8
         env: # Drawback of REACT-JS, cannot read environment variable runtime
             - name: REACT_APP_PUBLIC_URL
-              value: https://shrishti.online
+              value: {{ .Values.route53.domain_name_https }}
         ports:
             - containerPort: 80
         resources:

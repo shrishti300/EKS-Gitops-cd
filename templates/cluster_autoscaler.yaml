@@ -6,7 +6,7 @@ metadata:
     k8s-addon: cluster-autoscaler.addons.k8s.io
     k8s-app: cluster-autoscaler
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::357186263723:role/shrishti-hpa-role #Update Role ARN here
+    eks.amazonaws.com/role-arn: arn:aws:iam::357186263723:role/K8s_asg_kartik
   name: cluster-autoscaler
   namespace: kube-system
 
@@ -140,7 +140,7 @@ spec:
     spec:
       serviceAccountName: cluster-autoscaler
       containers:
-        - image: k8s.gcr.io/autoscaling/cluster-autoscaler:v1.26.2 #Update k8s version here MAJOR.MINOR.PATCH
+        - image: k8s.gcr.io/autoscaling/cluster-autoscaler:v1.26.2
           name: cluster-autoscaler
           resources:
             limits:
@@ -157,7 +157,7 @@ spec:
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
             - --expander=least-waste
-            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/shrishti-k8s # Update cluster
+            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/kartik-eks # Update cluster
             - --balance-similar-node-groups
             - --skip-nodes-with-system-pods=false
           volumeMounts:
